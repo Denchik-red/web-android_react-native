@@ -1,16 +1,22 @@
+import { useState } from 'react'
 import { View, ScrollView } from 'react-native'
 import LoginForm from '../components/LoginForm';
 
 function AuthorizationPage() {
+
+
+    const [authStatus, setAuthStatus] = useState("login");
+
+
     return (
         <View className="flex-1">
             <ScrollView className=" web:min-h-screen web:min-w-full ios:android:w-full ios:android:h-full dark:bg-black bg-zinc-50 overflow-x-hidden web:selection:bg-orange-500
       selection:text-zinc-100 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] duration-500 flex web:justify-center ios:pt-50
         bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-zinc-200)] dark:[--pattern-fg:var(--color-white)]/20">
 
-            <View className="mt-35">
-                <LoginForm></LoginForm>
-            </View>
+                <View className="mt-35">
+                    <LoginForm authStatus={authStatus} setAuthStatus={setAuthStatus}></LoginForm>
+                </View>
 
             </ScrollView>
             <View className="fixed inset-0 pointer-events-none overflow-hidden opacity-20 dark:opacity-10">
