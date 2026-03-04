@@ -1,0 +1,9 @@
+npx create-expo-app@latest --template blank
+
+Router:
+npm install @react-navigation/native
+npm install @react-navigation/native-stack
+
+export ANDROID_HOME=/home/denis/Android/Sdk
+
+nativeWind:
