@@ -1,48 +1,40 @@
-import { NavigationContainer } from '@react-navigation/native';
+import "./global.css"
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button } from 'react-native';
-import "./global.css"
-
+import AboutPage from './screens/AboutPage';
+import AuthorizationPage from './screens/AuthorizationPage';
+import AppLogo from './components/AppLogo';
 
 const Stack = createNativeStackNavigator();
 
-// Экран 1
+// домашний экран
 function Home({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Главная</Text>
-      <Button title="Перейти" onPress={() => navigation.navigate('Details')} />
+      <Button title="Перейти" onPress={() => navigation.navigate('Authorization')} />
     </View>
   );
 }
 
-// Экран 2
-function Details() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Детали</Text>
-    </View>
-  );
-}
-
-function Style() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-xl font-bold text-blue-500">
-        Welcome to Nativewind!
-      </Text>
-    </View>
-  )
-}
-
-// Главный компонент
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Style">
+    <NavigationContainer >
+      <Stack.Navigator
+        initialRouteName="Authorization"
+        screenOptions={({ navigation }) => ({
+          title: "",
+          headerLeft: () => {
+            return (
+              <AppLogo onClickAction={() => navigation.navigate('Home')}></AppLogo>
+            )
+          },
+          headerTransparent: true
+        })}>
+        <Stack.Screen name="About" component={AboutPage} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Details} />
-        <Stack.Screen name="Style" component={Style} />
+        <Stack.Screen name="Authorization" component={AuthorizationPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
