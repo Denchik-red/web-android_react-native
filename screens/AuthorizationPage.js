@@ -16,8 +16,11 @@ function AuthorizationPage() {
         bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-zinc-200)] dark:[--pattern-fg:var(--color-white)]/20">
 
                 <View className="mt-35">
-                    {/* <LoginForm authStatus={authStatus} setAuthStatus={setAuthStatus}></LoginForm> */}
-                    <RegisterForm></RegisterForm>
+                    {authStatus == "login" ? (
+                        <LoginForm setAuthStatus={setAuthStatus}></LoginForm>
+                    ) : (
+                        <RegisterForm setAuthStatus={setAuthStatus}></RegisterForm>
+                    )}
                 </View>
 
             </ScrollView>
