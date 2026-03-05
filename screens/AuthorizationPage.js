@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { View, ScrollView } from 'react-native'
 import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 
 function AuthorizationPage() {
 
@@ -15,7 +16,8 @@ function AuthorizationPage() {
         bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-zinc-200)] dark:[--pattern-fg:var(--color-white)]/20">
 
                 <View className="mt-35">
-                    <LoginForm authStatus={authStatus} setAuthStatus={setAuthStatus}></LoginForm>
+                    {/* <LoginForm authStatus={authStatus} setAuthStatus={setAuthStatus}></LoginForm> */}
+                    <RegisterForm></RegisterForm>
                 </View>
 
             </ScrollView>
