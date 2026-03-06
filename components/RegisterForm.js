@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { MotiView } from "moti";
 import { View, Text, Pressable } from "react-native";
 import { PasswordInputCustom, EmailInputCustom } from "./TextInputCustom";
 
 
-function RegisterForm({setAuthStatus}) {
+function RegisterForm({ setAuthStatus }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const [isEmailValid, setIsEmailValid] = useState("false");
+    const [isPasswordValid, setIsPasswordValid] = useState("false");
+    const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState("false");
+
+    const [isPassworsMatch, setIsPassworsMatch] = useState("true");
+
     function onRegisterBtnPress() {
-        console.log( "email", email)
-        console.log( "password", password)
-        console.log( "confirmPassword", confirmPassword)
+        if (!isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
+            console.log("Form is invalid. Please check your inputs.");
+            return;
+        }
+        console.log("email", email)
+        console.log("password", password)
+        console.log("confirmPassword", confirmPassword)
     }
 
 
@@ -39,17 +49,29 @@ function RegisterForm({setAuthStatus}) {
                         <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
                             Email
                         </Text>
-                        <EmailInputCustom value={email} onChangeText={setEmail}/>
+                        <EmailInputCustom value={email} onChangeText={setEmail} setIsEmailValid={setIsEmailValid} />
                     </View>
 
                     <View className="flex flex-col gap-2">
                         <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
                             Пароль
                         </Text>
-                        <PasswordInputCustom value={password} onChangeText={setPassword}/>
+                        <PasswordInputCustom
+                            value={password}
+                            onChangeText={(newValue) => {
+                                setPassword(newValue)
+                                if (newValue != confirmPassword) {
+                                    setIsPassworsMatch(false)
+                                } else {
+                                    setIsPassworsMatch(true)
+                                }
+                            }}
+                            setIsPasswordValid={setIsPasswordValid}
+                            customError={isPassworsMatch ? "" : "Пароли не совпадают"} 
+                        />
                     </View>
 
-                    <View  className="flex flex-col gap-2">
+                    <View className="flex flex-col gap-2">
                         <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
                             Повторите пароль
                         </Text>
@@ -57,7 +79,15 @@ function RegisterForm({setAuthStatus}) {
                             value={confirmPassword}
                             onChangeText={(newValue) => {
                                 setConfirmPassword(newValue)
-                            }}/>
+                                if (newValue != password) {
+                                    setIsPassworsMatch(false)
+                                } else {
+                                    setIsPassworsMatch(true)
+                                }
+                            }}
+                            setIsPasswordValid={setIsConfirmPasswordValid}
+                            customError={isPassworsMatch ? "" : "Пароли не совпадают"}
+                        />
                     </View>
 
                 </View>

@@ -8,9 +8,15 @@ function LoginForm({ setAuthStatus }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [isEmailValid, setIsEmailValid] = useState("false");
+    const [isPasswordValid, setIsPasswordValid] = useState("false");
+
     function onLoginBtnPress() {
         console.log("email: ", email)
         console.log("password: ", password)
+
+        console.log("isEmailValid: ", isEmailValid)
+        console.log("isPasswordValid: ", isPasswordValid)
     }
 
     return (
@@ -35,7 +41,7 @@ function LoginForm({ setAuthStatus }) {
                     <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
                         Email
                     </Text>
-                    <EmailInputCustom value={email} onChangeText={setEmail}></EmailInputCustom>
+                    <EmailInputCustom value={email} onChangeText={setEmail} setIsEmailValid={setIsEmailValid} ></EmailInputCustom>
                 </View>
 
                 <View className="gap-2">
@@ -43,7 +49,7 @@ function LoginForm({ setAuthStatus }) {
                         Пароль
                     </Text>
 
-                    <PasswordInputCustom value={password} onChangeText={setPassword}></PasswordInputCustom>
+                    <PasswordInputCustom value={password} onChangeText={setPassword} setIsPasswordValid={setIsPasswordValid} ></PasswordInputCustom>
                 </View>
 
                 <Pressable
@@ -56,7 +62,7 @@ function LoginForm({ setAuthStatus }) {
                     </Text>
                 </Pressable>
 
-                <Text onPress={() => {setAuthStatus("register")}} className="text-center text-zinc-600 dark:text-zinc-400 py-2">
+                <Text onPress={() => { setAuthStatus("register") }} className="text-center text-zinc-600 dark:text-zinc-400 py-2">
                     Ещё нет аккаунта? <Text className="text-orange-500" >Зарегистрироваться</Text>
                 </Text>
             </MotiView>
