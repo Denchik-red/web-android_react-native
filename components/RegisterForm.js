@@ -17,14 +17,14 @@ function RegisterForm({setAuthStatus}) {
 
 
     return (
-        <View className="w-11/12 md:w-5/6 lg:w-3/5 xl:w-1/3 mx-auto bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl 
+        <View className="w-11/12 md:w-5/6 lg:w-3/5 xl:w-1/3 mx-auto bg-white/80 dark:bg-zinc-900 backdrop-blur-xl 
         rounded-3xl shadow-2xl shadow-zinc-300 dark:shadow-zinc-950 dark:shadow-lg-login border border-zinc-200/50 dark:border-zinc-800/50
-        flex flex-col py-8 md:py-12 relative z-10 items-center">
+        flex flex-col py-8 md:py-12 relative z-10 items-center android:mt-20">
             <MotiView
                 from={{ opacity: 0, translateY: 20 }}
                 animate={{ opacity: 1, translateY: 0 }}
                 transition={{ type: "timing", duration: 600 }}
-                className="bg-white dark:bg-zinc-900 rounded-3xl gap-6">
+                className="bg-white dark:bg-zinc-900 rounded-3xl gap-6 flex items-center">
                 <View className="items-center">
                     <Text className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">
                         Создать аккаунт
@@ -34,42 +34,46 @@ function RegisterForm({setAuthStatus}) {
                     </Text>
                 </View>
 
-                <View className="gap-4 w-82">
-                    <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
-                        Email
-                    </Text>
-                    <EmailInputCustom value={email} onChangeText={setEmail}></EmailInputCustom>
+                <View className="gap-6 w-82 md:w-96">
+                    <View className="flex flex-col gap-2">
+                        <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
+                            Email
+                        </Text>
+                        <EmailInputCustom value={email} onChangeText={setEmail}/>
+                    </View>
 
+                    <View className="flex flex-col gap-2">
+                        <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
+                            Пароль
+                        </Text>
+                        <PasswordInputCustom value={password} onChangeText={setPassword}/>
+                    </View>
 
-                    <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
-                        Пароль
-                    </Text>
-                    <PasswordInputCustom value={password} onChangeText={setPassword}></PasswordInputCustom>
-                    <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
-                        Повторите пароль
-                    </Text>
-                    <PasswordInputCustom
-                        value={confirmPassword}
-                        onChangeText={(newValue) => {
-                            setConfirmPassword(newValue)
-                        }}
-                    ></PasswordInputCustom>
+                    <View  className="flex flex-col gap-2">
+                        <Text className="flex text-base font-medium text-zinc-700 dark:text-zinc-300">
+                            Повторите пароль
+                        </Text>
+                        <PasswordInputCustom
+                            value={confirmPassword}
+                            onChangeText={(newValue) => {
+                                setConfirmPassword(newValue)
+                            }}/>
+                    </View>
 
                 </View>
 
                 <View className="flex-row gap-3">
 
-                    <Pressable
-                        onPress={onRegisterBtnPress}
-                        className="py-3 rounded-xl bg-orange-600 flex-1"
-                    >
+                    <Pressable onPress={onRegisterBtnPress} className="w-full android:w-84 ios:w-84 py-3 px-4 rounded-xl android:bg-orange-600 ios:bg-orange-600 web:bg-gradient-to-r web:from-orange-600 web:to-orange-700
+                    text-white font-semibold text-lg shadow-lg shadow-orange-500/30 hover:shadow-orange-500/40 hover:from-orange-500 hover:to-orange-600 transition-all duration-500
+                    relative overflow-hidden group web:md:w-96 web:w-84">
                         <Text className="text-white text-center font-semibold">
                             Создать аккаунт
                         </Text>
                     </Pressable>
                 </View>
 
-                <Text onPress={() => setAuthStatus("login")} className="text-center text-zinc-600 dark:text-zinc-400">
+                <Text onPress={() => setAuthStatus("login")} className="text-center text-zinc-600 dark:text-zinc-400 py-2">
                     Уже есть аккаунт? <Text className="text-orange-500">Войти</Text>
                 </Text>
             </MotiView>

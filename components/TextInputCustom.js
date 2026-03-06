@@ -45,7 +45,7 @@ export function EmailInputCustom({ value, onChangeText }) {
             value={value}
             onChangeText={onChangeText}
             className="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700
-            focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500
+            focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 
             text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500"
         />
     )
