@@ -5,6 +5,7 @@ import { PasswordInputCustom, EmailInputCustom } from "./TextInputCustom";
 
 
 function RegisterForm({ setAuthStatus }) {
+    const isDisabled = true;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -13,7 +14,7 @@ function RegisterForm({ setAuthStatus }) {
     const [isPasswordValid, setIsPasswordValid] = useState("false");
     const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState("false");
 
-    const [isPassworsMatch, setIsPassworsMatch] = useState("true");
+    const [isPassworsMatch, setIsPasswordsMatch] = useState("true");
 
     function onRegisterBtnPress() {
         if (!isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
@@ -61,9 +62,9 @@ function RegisterForm({ setAuthStatus }) {
                             onChangeText={(newValue) => {
                                 setPassword(newValue)
                                 if (newValue != confirmPassword) {
-                                    setIsPassworsMatch(false)
+                                    setIsPasswordsMatch(false)
                                 } else {
-                                    setIsPassworsMatch(true)
+                                    setIsPasswordsMatch(true)
                                 }
                             }}
                             setIsPasswordValid={setIsPasswordValid}
@@ -80,9 +81,9 @@ function RegisterForm({ setAuthStatus }) {
                             onChangeText={(newValue) => {
                                 setConfirmPassword(newValue)
                                 if (newValue != password) {
-                                    setIsPassworsMatch(false)
+                                    setIsPasswordsMatch(false)
                                 } else {
-                                    setIsPassworsMatch(true)
+                                    setIsPasswordsMatch(true)
                                 }
                             }}
                             setIsPasswordValid={setIsConfirmPasswordValid}
@@ -94,9 +95,16 @@ function RegisterForm({ setAuthStatus }) {
 
                 <View className="flex-row gap-3">
 
-                    <Pressable onPress={onRegisterBtnPress} className="w-full android:w-84 ios:w-84 py-3 px-4 rounded-xl android:bg-orange-600 ios:bg-orange-600 web:bg-gradient-to-r web:from-orange-600 web:to-orange-700
-                    text-white font-semibold text-lg shadow-lg shadow-orange-500/30 hover:shadow-orange-500/40 hover:from-orange-500 hover:to-orange-600 transition-all duration-500
-                    relative overflow-hidden group web:md:w-96 web:w-84">
+                    {/* <Pressable onPress={onRegisterBtnPress} className="w-full android:w-84 ios:w-84 py-3 px-4 rounded-xl android:bg-orange-600 ios:bg-orange-600 web:bg-gradient-to-r
+                    web:from-orange-600 web:to-orange-700 text-white font-semibold text-lg shadow-lg shadow-orange-500/30 hover:shadow-orange-500/40
+                    hover:from-orange-500 hover:to-orange-600 transition-all duration-500 relative overflow-hidden group web:md:w-96 web:w-84"> */}
+                    <Pressable
+                        onPress={onRegisterBtnPress}
+                        disabled={isDisabled}
+                        className={` w-full android:w-84 ios:w-84 web:w-84 web:md:w-96 py-3 px-4 rounded-xl text-white font-semibold text-lg relative
+                            overflow-hidden group transition-all duration-500
+                            ${ isDisabled ? "bg-zinc-500 shadow-none " 
+                                : "android:bg-orange-600 ios:bg-orange-600 web:bg-gradient-to-r web:from-orange-600 web:to-orange-700 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/40 hover:from-orange-500 hover:to-orange-600"}`}>
                         <Text className="text-white text-center font-semibold">
                             Создать аккаунт
                         </Text>
