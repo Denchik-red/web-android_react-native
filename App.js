@@ -5,6 +5,7 @@ import { Text, View, Button } from 'react-native';
 import AboutPage from './screens/AboutPage';
 import AuthorizationPage from './screens/AuthorizationPage';
 import AppLogo from './components/AppLogo';
+import MainPage from "./screens/MainPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ export default function App() {
   return (
     <NavigationContainer >
       <Stack.Navigator
-        initialRouteName="Authorization"
+        initialRouteName="Main"
         screenOptions={({ navigation }) => ({
           title: "",
           headerLeft: () => {
@@ -33,7 +34,7 @@ export default function App() {
           headerTransparent: true
         })}>
         <Stack.Screen name="About" component={AboutPage} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Main" component={MainPage} />
         <Stack.Screen name="Authorization" component={AuthorizationPage} />
       </Stack.Navigator>
     </NavigationContainer>
