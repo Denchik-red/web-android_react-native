@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native"
+import { View, Text, Pressable, ScrollView } from "react-native"
 import { useState } from "react"
 import Subscribe from "../components/Subscribe"
 import colorMap from '../components/colorsNativeWind'
@@ -102,9 +102,9 @@ function MainPage() {
     const budgetLimit = 6000;
     const expensesPercentage = (monthlyExpenses / budgetLimit) * 100;
 
-    const colorIndex = subscribes[0].name.charCodeAt(0) % colorMap.length;
-    const colorName = colorMap[colorIndex];
-    const { bg, text } = colorMap[colorName];
+    const colorNames = Object.keys(colorMap);
+    const colorIndex = subscribes[0].name.charCodeAt(0) % colorNames.length;
+    const { bg, text } = colorMap[colorNames[colorIndex]];
 
     return (
         <View className="flex-1 p-6 bg-gray-50 px-10">
@@ -160,27 +160,12 @@ function MainPage() {
             </View>
 
             {/* Список подписок */}
-            <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                <Text className="text-lg font-semibold text-gray-900 mb-4">Активные подписки</Text>
-                {/* Пример элемента подписки */}
-                <Subscribe
-                    name="Netflix"
-                    payDate="15 мая"
-                    cost="499"
-                ></Subscribe>
-
-                <Subscribe
-                    name="YouTube Premium"
-                    payDate="20 мая"
-                    cost="199"
-                ></Subscribe>
-
-                <Subscribe
-                    name="Spotify"
-                    payDate="25 мая"
-                    cost="169"
-                ></Subscribe>
-            </View>
+            <Text className="text-lg font-semibold text-gray-900 mb-4">Активные подписки</Text>
+            <ScrollView className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                {subscribes.map((sub, index) => (
+                    <Subscribe key={index} name={sub.name} payDate={sub.payDate} cost={sub.cost} />
+                ))}
+            </ScrollView>
         </View>
     )
 }

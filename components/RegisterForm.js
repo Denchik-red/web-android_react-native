@@ -1,29 +1,51 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { MotiView } from "moti";
 import { View, Text, Pressable } from "react-native";
 import { PasswordInputCustom, EmailInputCustom } from "./TextInputCustom";
 
 
-function RegisterForm({ setAuthStatus }) {
-    const isDisabled = true;
+function RegisterForm({ navigation, setAuthStatus }) {
+    const queryForm = axios.create({
+         baseURL: 'http://localhost:3000/api/',
+         headers: { 'Content-Type': 'application/json'}
+    })
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [isEmailValid, setIsEmailValid] = useState("false");
-    const [isPasswordValid, setIsPasswordValid] = useState("false");
-    const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState("false");
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
+    const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(false);
 
-    const [isPassworsMatch, setIsPasswordsMatch] = useState("true");
+    const [isPasswordsMatch, setIsPasswordsMatch] = useState(true);
+    const [isDisabled, setIsDisabled] = useState(true);
 
-    function onRegisterBtnPress() {
-        if (!isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
-            console.log("Form is invalid. Please check your inputs.");
+    useEffect(() => {
+        const passwordsMatch = password === confirmPassword;
+        setIsPasswordsMatch(passwordsMatch);
+        setIsDisabled(!(isEmailValid && isPasswordValid && isConfirmPasswordValid && passwordsMatch));
+    }, [email, password, confirmPassword, isEmailValid, isPasswordValid, isConfirmPasswordValid]);
+
+    async function onRegisterBtnPress() {
+        if (isDisabled) {
+            console.log("Форма невалидна. Пожалуйста, проверьте введенные данные.");
             return;
         }
-        console.log("email", email)
-        console.log("password", password)
-        console.log("confirmPassword", confirmPassword)
+
+        try {
+            console.log("Форма валидна. Отправка запроса на регистрацию...");
+            const response = await queryForm.post('/users', {
+                email: email,
+                password: password
+            });
+            console.log('Регистрация успешна:', response.data);
+            setAuthStatus("login")
+        } catch (error) {
+            console.error('Ошибка регистрации:', error.response ? error.response.data : error.message);
+            // Здесь можно показать пользователю сообщение об ошибке
+        }
     }
 
 
@@ -60,15 +82,10 @@ function RegisterForm({ setAuthStatus }) {
                         <PasswordInputCustom
                             value={password}
                             onChangeText={(newValue) => {
-                                setPassword(newValue)
-                                if (newValue != confirmPassword) {
-                                    setIsPasswordsMatch(false)
-                                } else {
-                                    setIsPasswordsMatch(true)
-                                }
+                                setPassword(newValue);
                             }}
                             setIsPasswordValid={setIsPasswordValid}
-                            customError={isPassworsMatch ? "" : "Пароли не совпадают"} 
+                            customError={!isPasswordsMatch ? "Пароли не совпадают" : ""} 
                         />
                     </View>
 
@@ -79,15 +96,10 @@ function RegisterForm({ setAuthStatus }) {
                         <PasswordInputCustom
                             value={confirmPassword}
                             onChangeText={(newValue) => {
-                                setConfirmPassword(newValue)
-                                if (newValue != password) {
-                                    setIsPasswordsMatch(false)
-                                } else {
-                                    setIsPasswordsMatch(true)
-                                }
+                                setConfirmPassword(newValue);
                             }}
                             setIsPasswordValid={setIsConfirmPasswordValid}
-                            customError={isPassworsMatch ? "" : "Пароли не совпадают"}
+                            customError={!isPasswordsMatch ? "Пароли не совпадают" : ""}
                         />
                     </View>
 
@@ -103,7 +115,7 @@ function RegisterForm({ setAuthStatus }) {
                         disabled={isDisabled}
                         className={` w-full android:w-84 ios:w-84 web:w-84 web:md:w-96 py-3 px-4 rounded-xl text-white font-semibold text-lg relative
                             overflow-hidden group transition-all duration-500
-                            ${ isDisabled ? "bg-zinc-500 shadow-none " 
+                            ${ isDisabled ? "bg-zinc-400 dark:bg-zinc-600 shadow-none " 
                                 : "android:bg-orange-600 ios:bg-orange-600 web:bg-gradient-to-r web:from-orange-600 web:to-orange-700 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/40 hover:from-orange-500 hover:to-orange-600"}`}>
                         <Text className="text-white text-center font-semibold">
                             Создать аккаунт

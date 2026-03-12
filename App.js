@@ -23,12 +23,12 @@ export default function App() {
   return (
     <NavigationContainer >
       <Stack.Navigator
-        initialRouteName="Main"
+        initialRouteName="Authorization"
         screenOptions={({ navigation }) => ({
           title: "",
           headerLeft: () => {
             return (
-              <AppLogo onClickAction={() => navigation.navigate('Home')}></AppLogo>
+              <AppLogo onClickAction={() => navigation.navigate('About')}></AppLogo>
             )
           },
           headerTransparent: true

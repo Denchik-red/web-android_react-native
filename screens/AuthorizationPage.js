@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native'
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 
-function AuthorizationPage() {
+function AuthorizationPage({navigation}) {
 
 
     const [authStatus, setAuthStatus] = useState("login");
@@ -19,7 +19,7 @@ function AuthorizationPage() {
                     {authStatus == "login" ? (
                         <LoginForm setAuthStatus={setAuthStatus}></LoginForm>
                     ) : (
-                        <RegisterForm setAuthStatus={setAuthStatus}></RegisterForm>
+                        <RegisterForm navigation={navigation} setAuthStatus={setAuthStatus}></RegisterForm>
                     )}
                 </View>
 

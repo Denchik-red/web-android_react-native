@@ -3,12 +3,10 @@ import colorMap from './colorsNativeWind'
 
 function Subscribe({name, payDate, cost}) {
     
-    const colorNames = Object.keys(colorMap);
-    
     // Выбираем цвет на основе первого символа названия
-    const colorIndex = name.charCodeAt(0) % colorNames.length;
-    const colorName = colorMap[colorIndex];
-    const { bg, text } = colorMap[colorName];
+    const colorNames = Object.keys(colorMap);
+    const colorIndex = name[0].charCodeAt(0) % colorNames.length;
+    const { bg, text } = colorMap[colorNames[colorIndex]];
 
     return (
         <View className="flex-row justify-between items-center py-3 border-b border-gray-100 last:border-b-0">
