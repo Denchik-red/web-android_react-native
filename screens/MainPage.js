@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from "react-native"
 import { useState } from "react"
 import Subscribe from "../components/Subscribe"
+import colorMap from '../components/colorsNativeWind'
 
 
 function MainPage() {
@@ -8,7 +9,102 @@ function MainPage() {
         console.log("onAddSubscribeBtnPress")
     }
 
-    const [totleCost, setTotleCost] = useState(3000)
+    const subscribes = [
+        {
+            name: "Netflix",
+            payDate: "15 мая",
+            cost: "499"
+        
+        },
+        {
+            name: "YouTube Premium",
+            payDate: "20 мая",
+            cost: "199"
+        },
+        {
+            name: "Spotify",
+            payDate: "25 мая",
+            cost: "169"
+        },
+        {
+            name: "Apple Music",
+            payDate: "10 июня",
+            cost: "169"
+        },
+        {
+            name: "Tinkoff Pro",
+            payDate: "1 июня",
+            cost: "299"
+        },
+        {
+            name: "Yandex Plus",
+            payDate: "8 июня",
+            cost: "299"
+        },
+        {
+            name: "VK Combo",
+            payDate: "12 июня",
+            cost: "149"
+        },
+        {
+            name: "Okko",
+            payDate: "3 июня",
+            cost: "399"
+        },
+        {
+            name: "Amediateka",
+            payDate: "22 мая",
+            cost: "599"
+        },
+        {
+            name: "Kinopoisk HD",
+            payDate: "18 июня",
+            cost: "269"
+        },
+        {
+            name: "Google One",
+            payDate: "7 июня",
+            cost: "159"
+        },
+        {
+            name: "Microsoft 365",
+            payDate: "28 мая",
+            cost: "359"
+        },
+        {
+            name: "Setapp",
+            payDate: "4 июня",
+            cost: "999"
+        },
+        {
+            name: "HeadHunter",
+            payDate: "19 мая",
+            cost: "1999"
+        },
+        {
+            name: "Skillbox",
+            payDate: "14 июня",
+            cost: "2500"
+        },
+        {
+            name: "GeekBrains",
+            payDate: "29 мая",
+            cost: "2700"
+        },
+        {
+            name: "Netology",
+            payDate: "17 июня",
+            cost: "3000"
+        }
+    ]
+
+    const monthlyExpenses = 4250;
+    const budgetLimit = 6000;
+    const expensesPercentage = (monthlyExpenses / budgetLimit) * 100;
+
+    const colorIndex = subscribes[0].name.charCodeAt(0) % colorMap.length;
+    const colorName = colorMap[colorIndex];
+    const { bg, text } = colorMap[colorName];
 
     return (
         <View className="flex-1 p-6 bg-gray-50 px-10">
@@ -36,49 +132,30 @@ function MainPage() {
                     <Text className="text-sm font-medium text-gray-500">Расходы в месяц</Text>
 
                     <View>
-                        <Text className="text-3xl font-bold text-gray-900 mt-1">4 250 ₽</Text>
+                        <Text className="text-3xl font-bold text-gray-900 mt-1">{monthlyExpenses.toLocaleString('ru-RU')} ₽</Text>
                         <View className="w-full bg-gray-100 rounded-full h-1.5">
-                            <View className={`bg-indigo-600 h-1.5 rounded-full w-[${75}%]`}></View>
+                            <View className={`bg-indigo-600 h-1.5 rounded-full`} style={{ width: `${expensesPercentage}%` }}></View>
                         </View>
-                        <Text className="text-xs text-gray-400 mt-2">Лимит бюджета: 6 000 ₽</Text>
+                        <Text className="text-xs text-gray-400 mt-2">Лимит бюджета: {budgetLimit.toLocaleString('ru-RU')} ₽</Text>
                     </View>
-
-                    {/* <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500">Расходы в месяц</p>
-                        <h3 class="text-3xl font-bold text-gray-900 mt-1">4 250 ₽</h3>
-                    </div>
-                    <span class="bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">+12%</span>
-                </div>
-                <div class="w-full bg-gray-100 rounded-full h-1.5">
-                    <div class="bg-indigo-600 h-1.5 rounded-full" style="width: 70%"></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-2">Лимит бюджета: 6 000 ₽</p> */}
                 </View>
 
                 {/* <!-- Всего в год --> */}
                 <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <Text>Всего в год</Text>
-                    {/* <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Прогноз на год</p>
-                            <h3 class="text-3xl font-bold text-gray-900 mt-1">51 000 ₽</h3>
-                        </div>
-                        <span class="bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">0%</span>
-                    </div>
-                    <p class="text-xs text-gray-400">Включая годовые платежи (Netflix, Adobe)</p> */}
+                    <Text className="text-sm font-medium text-gray-500">Прогноз на год</Text>
+                    <View>
+                        <Text className="text-3xl font-bold text-gray-900 mt-1">51 000 ₽</Text>
+                    </View>
                 </View>
 
                 <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <Text>еще что то</Text>
-                    {/* <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Прогноз на год</p>
-                            <h3 class="text-3xl font-bold text-gray-900 mt-1">51 000 ₽</h3>
-                        </div>
-                        <span class="bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">0%</span>
-                    </div>
-                    <p class="text-xs text-gray-400">Включая годовые платежи (Netflix, Adobe)</p> */}
+                    <View>
+                        <Text className="text-sm font-medium text-gray-500">Ближайший платеж</Text>
+                        <Text className="text-3xl font-bold text-gray-900 mt-1">Завтра</Text>
+                    </View>
+                    <View className={`w-10 h-10 rounded-full flex justify-center items-center mr-3 ${bg}`}>
+                        <Text className={`font-bold ${text}`}>{subscribes[0].name.charAt(0).toUpperCase()}</Text>
+                    </View>
                 </View>
             </View>
 
