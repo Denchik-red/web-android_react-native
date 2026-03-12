@@ -2,6 +2,7 @@ import { View, Text, Pressable, ScrollView } from "react-native"
 import { useState } from "react"
 import Subscribe from "../components/Subscribe"
 import colorMap from '../components/colorsNativeWind'
+import PieChartComp from "../components/PieChart"
 
 
 function MainPage() {
@@ -11,91 +12,68 @@ function MainPage() {
 
     const subscribes = [
         {
-            name: "Netflix",
-            payDate: "15 мая",
-            cost: "499"
-        
+            nom: 1,
+            name: "netflix",
+            category: "Фильм",
+            price: 1000,
+            active: true,
+            expires: "20 мая",
         },
         {
-            name: "YouTube Premium",
-            payDate: "20 мая",
-            cost: "199"
+            nom: 2,
+            name: "youtube",
+            category: "Видео",
+            price: 500,
+            active: true,
+            expires: "25 мая",
         },
         {
-            name: "Spotify",
-            payDate: "25 мая",
-            cost: "169"
+            nom: 3,
+            name: "spotify",
+            category: "Музыка",
+            price: 300,
+            active: false,
+            expires: "10 апреля",
         },
         {
-            name: "Apple Music",
-            payDate: "10 июня",
-            cost: "169"
+            nom: 4,
+            name: "figma",
+            category: "Дизайн",
+            price: 800,
+            active: true,
+            expires: "1 июня",
         },
         {
-            name: "Tinkoff Pro",
-            payDate: "1 июня",
-            cost: "299"
+            nom: 5,
+            name: "adobe",
+            category: "Дизайн",
+            price: 1500,
+            active: true,
+            expires: "15 мая",
         },
-        {
-            name: "Yandex Plus",
-            payDate: "8 июня",
-            cost: "299"
-        },
-        {
-            name: "VK Combo",
-            payDate: "12 июня",
-            cost: "149"
-        },
-        {
-            name: "Okko",
-            payDate: "3 июня",
-            cost: "399"
-        },
-        {
-            name: "Amediateka",
-            payDate: "22 мая",
-            cost: "599"
-        },
-        {
-            name: "Kinopoisk HD",
-            payDate: "18 июня",
-            cost: "269"
-        },
-        {
-            name: "Google One",
-            payDate: "7 июня",
-            cost: "159"
-        },
-        {
-            name: "Microsoft 365",
-            payDate: "28 мая",
-            cost: "359"
-        },
-        {
-            name: "Setapp",
-            payDate: "4 июня",
-            cost: "999"
-        },
-        {
-            name: "HeadHunter",
-            payDate: "19 мая",
-            cost: "1999"
-        },
-        {
-            name: "Skillbox",
-            payDate: "14 июня",
-            cost: "2500"
-        },
-        {
-            name: "GeekBrains",
-            payDate: "29 мая",
-            cost: "2700"
-        },
-        {
-            name: "Netology",
-            payDate: "17 июня",
-            cost: "3000"
-        }
+
+    ]
+
+    const pieData = [ //кактегория, данные, можно проссумировать рпи запросе в бд
+        { value: 300, color: "#f97316", name: "Музыка" },
+        { value: 800, color: "#fb923c", name: "Видео" },
+        { value: 200, color: "#fdba74", name: "Облако" },
+        { value: 400, color: "#fed7aa", name: "Доставка" }
+    ]
+
+    const monthlyData = [
+        { value: 1200, lables: "Jan" },
+        { value: 900, lables: "Feb" },
+        { value: 1700, lables: "Mar" },
+        { value: 1100, lables: "Apr" },
+        { value: 2100, lables: "May" },
+        { value: 1900, lables: "Jun" },
+        { value: 1600, lables: "Jul" },
+        { value: 1800, lables: "Aug" },
+        { value: 2000, lables: "Sep" },
+        { value: 2300, lables: "Oct" },
+        { value: 2600, lables: "Nov" },
+        { value: 2400, lables: "Dec" }
     ]
 
     const monthlyExpenses = 4250;
@@ -107,7 +85,7 @@ function MainPage() {
     const { bg, text } = colorMap[colorNames[colorIndex]];
 
     return (
-        <View className="flex-1 p-6 bg-gray-50 px-10">
+        <ScrollView className="flex-1 p-6 bg-gray-50 px-10">
             <View className="mt-20 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <View>
                     <Text className="text-2xl font-bold text-gray-900">Мои подписки</Text>
@@ -128,17 +106,8 @@ function MainPage() {
             <View className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
 
                 {/* Всего в месяц */}
-                <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm h-40">
-                    <Text className="text-sm font-medium text-gray-500">Расходы в месяц</Text>
 
-                    <View>
-                        <Text className="text-3xl font-bold text-gray-900 mt-1">{monthlyExpenses.toLocaleString('ru-RU')} ₽</Text>
-                        <View className="w-full bg-gray-100 rounded-full h-1.5">
-                            <View className={`bg-indigo-600 h-1.5 rounded-full`} style={{ width: `${expensesPercentage}%` }}></View>
-                        </View>
-                        <Text className="text-xs text-gray-400 mt-2">Лимит бюджета: {budgetLimit.toLocaleString('ru-RU')} ₽</Text>
-                    </View>
-                </View>
+                <PieChartComp data={pieData} />
 
                 {/* <!-- Всего в год --> */}
                 <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
@@ -161,12 +130,20 @@ function MainPage() {
 
             {/* Список подписок */}
             <Text className="text-lg font-semibold text-gray-900 mb-4">Активные подписки</Text>
-            <ScrollView className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+            <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {subscribes.map((sub, index) => (
-                    <Subscribe key={index} name={sub.name} payDate={sub.payDate} cost={sub.cost} />
+                    <Subscribe
+                        key={index}
+                        nom={sub.nom}
+                        name={sub.name}
+                        category={sub.category}
+                        price={sub.price}
+                        active={sub.active}
+                        expires={sub.expires} />
                 ))}
-            </ScrollView>
-        </View>
+            </View>
+
+        </ScrollView>
     )
 }
 

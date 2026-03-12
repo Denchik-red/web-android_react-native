@@ -23,7 +23,7 @@ export default function App() {
   return (
     <NavigationContainer >
       <Stack.Navigator
-        initialRouteName="Authorization"
+        initialRouteName="Main"
         screenOptions={({ navigation }) => ({
           title: "",
           headerLeft: () => {
