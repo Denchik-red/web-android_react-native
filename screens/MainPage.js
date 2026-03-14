@@ -1,8 +1,9 @@
-import { View, Text, Pressable, ScrollView } from "react-native"
+import { View, Text, Pressable, ScrollView, useColorScheme } from "react-native"
 import { useState } from "react"
 import Subscribe from "../components/Subscribe"
 import colorMap from '../components/colorsNativeWind'
 import PieChartComp from "../components/PieChart"
+import ExpenseChart from "../components/YearSpendChart"
 
 
 function MainPage() {
@@ -76,20 +77,17 @@ function MainPage() {
         { value: 2400, lables: "Dec" }
     ]
 
-    const monthlyExpenses = 4250;
-    const budgetLimit = 6000;
-    const expensesPercentage = (monthlyExpenses / budgetLimit) * 100;
-
+    const scheme = useColorScheme();
     const colorNames = Object.keys(colorMap);
     const colorIndex = subscribes[0].name.charCodeAt(0) % colorNames.length;
     const { bg, text } = colorMap[colorNames[colorIndex]];
 
     return (
-        <ScrollView className="flex-1 p-6 bg-gray-50 px-10">
+        <ScrollView className={`flex-1 p-6 px-10 border-zinc-200 dark:border-zinc-800 transition duration-500 dark:bg-black bg-zinc-50 text-2xl font-bold mb-6 text-zinc-900 dark:text-zinc-100`}>
             <View className="mt-20 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <View>
-                    <Text className="text-2xl font-bold text-gray-900">Мои подписки</Text>
-                    <Text className="text-gray-500 text-sm mt-1">Управляйте своими регулярными платежами</Text>
+                    <Text className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Мои подписки</Text>
+                    <Text className="text-sm mt-1 text-zinc-900 dark:text-zinc-100">Управляйте своими регулярными платежами</Text>
                 </View>
 
                 <Pressable
@@ -105,17 +103,18 @@ function MainPage() {
 
             <View className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
 
-                {/* Всего в месяц */}
-
-                <PieChartComp data={pieData} />
 
                 {/* <!-- Всего в год --> */}
-                <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <Text className="text-sm font-medium text-gray-500">Прогноз на год</Text>
-                    <View>
-                        <Text className="text-3xl font-bold text-gray-900 mt-1">51 000 ₽</Text>
-                    </View>
-                </View>
+                <PieChartComp data={pieData} />
+
+                <ExpenseChart data={monthlyData}></ExpenseChart>
+
+
+
+
+                {/* Всего в месяц */}
+
+
 
                 <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
                     <View>
@@ -129,8 +128,8 @@ function MainPage() {
             </View>
 
             {/* Список подписок */}
-            <Text className="text-lg font-semibold text-gray-900 mb-4">Активные подписки</Text>
-            <View className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Активные подписки</Text>
+            <View className="dark:bg-black bg-zinc-50 text-2xl font-bold mb-6 text-zinc-900 dark:text-zinc-100 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {subscribes.map((sub, index) => (
                     <Subscribe
                         key={index}

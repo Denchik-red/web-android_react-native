@@ -1,6 +1,6 @@
-import { View, Text, Platform } from "react-native";
-import { PieChart } from "react-native-chart-kit";
-import { useState } from "react";
+import { View, Text, Platform } from "react-native"
+import { PieChart } from "react-native-chart-kit"
+import { useState } from "react"
 import { MotiView } from 'moti'
 
 export default function PieChartComp({ data }) {
@@ -37,8 +37,8 @@ export default function PieChartComp({ data }) {
                         hasLegend={false}
                         chartConfig={{
                             color: (opacity = 1) => `rgba(249, 115, 22, ${opacity})`,
-                            backgroundGradientFrom: "#ffffff",
-                            backgroundGradientTo: "#ffffff",
+                            backgroundGradientFrom: "#27272a",
+                            backgroundGradientTo: "#27272a",
                         }}
                         avoidFalseZero
                         center={[0, 0]}

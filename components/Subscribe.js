@@ -76,7 +76,7 @@ function Subscribe({ nom, icon, name, category, price, active, expires }) {
                     <Text className="text-sm text-green-600 dark:text-green-400 mt-2">
                         Активна до {expires}
                     </Text>
-                    : ""}
+                : null}
 
                 <View className={`px-3 py-2 rounded-full ${active ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30 flex-1"}`}>
                     <Text
