@@ -52,7 +52,7 @@ export default function ExpenseChart({ data }) {
       from={{ opacity: 0, translateY: 30 }}
       animate={{ opacity: 1, translateY: 0, }}
       transition={{ type: 'timing', delay: 200, duration: 500, }}
-      className="w-full py-6 pr-1 web:p-6 md:p-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:shadow-orange-400 bg-white shadow-lg
+      className="w-full sm:w-120 lg:w-96 py-6 pr-1 web:p-6 md:p-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-orange-400 bg-white shadow-lg
     transition duration-500 overflow-hidden gap-6 dark:bg-zinc-800 dark:shadow-zinc-950">
 
       <View className="flex flex-col dark:bg-zinc-800 ios:px-6 android:px-6">

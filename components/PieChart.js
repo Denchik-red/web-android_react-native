@@ -1,6 +1,5 @@
 import { View, Text, Platform } from "react-native"
 import { PieChart } from "react-native-chart-kit"
-import { useState } from "react"
 import { MotiView } from 'moti'
 
 export default function PieChartComp({ data }) {
@@ -20,7 +19,7 @@ export default function PieChartComp({ data }) {
             from={{ opacity: 0, translateY: 30 }}
             animate={{ opacity: 1, translateY: 0, }}
             transition={{ type: 'timing', delay: 100, duration: 500, }}
-            className="w-full p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:shadow-orange-400 bg-white shadow-lg transition duration-500 dark:bg-zinc-800 dark:shadow-zinc-950 relative">
+            className="w-full sm:w-120 lg:w-96 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-orange-400 bg-white shadow-lg transition duration-500 dark:bg-zinc-800 dark:shadow-zinc-950 relative">
             <Text className="text-2xl font-bold mb-6 text-zinc-900 dark:text-zinc-100">
                 Расходы по категориям
             </Text>
